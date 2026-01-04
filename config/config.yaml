@@ -26,26 +26,13 @@ app:
 platforms:
   - id: "toutiao"
     name: "今日头条"
-  - id: "baidu"
-    name: "百度热搜"
-  - id: "wallstreetcn-hot"
-    name: "华尔街见闻"
-  - id: "thepaper"
-    name: "澎湃新闻"
   - id: "bilibili-hot-search"
     name: "bilibili 热搜"
-  - id: "cls-hot"
-    name: "财联社热门"
-  - id: "ifeng"
-    name: "凤凰网"
-  - id: "tieba"
-    name: "贴吧"
   - id: "weibo"
     name: "微博"
   - id: "douyin"
     name: "抖音"
-  - id: "zhihu"
-    name: "知乎"
+ 
 
 
 # ===============================================================
@@ -79,21 +66,7 @@ rss:
   # - 不配置：使用全局 freshness_filter.max_age_days（默认 3 天）
   # - 正整数：覆盖全局设置，只推送此天数内的文章
   # - 0：禁用此频道的新鲜度过滤，推送所有文章
-  feeds:
-    - id: "hacker-news"
-      name: "Hacker News"
-      url: "https://hnrss.org/frontpage"
-      # max_age_days: 1               # 示例：只推送1天内的文章
-
-    - id: "ruanyifeng"
-      name: "阮一峰的网络日志"
-      url: "http://www.ruanyifeng.com/blog/atom.xml"
-      # max_age_days: 7               # 示例：推送7天内的文章（更新较慢的博客）
-    
-    - id: "yahoo-finance"
-      name: "雅虎财经"
-      url: "https://finance.yahoo.com/news/rssindex"
-      enabled: false                  # 禁用
+   # 禁用
 
     # 自定义源示例
     # - id: "custom-feed"
@@ -123,13 +96,13 @@ rss:
 # ===============================================================
 report:
   mode: "current"                     # 可选: daily | current | incremental
-  display_mode: "keyword"             # 可选: keyword | platform
+  display_mode: "platform"             # 可选: keyword | platform
                                       # keyword: 按关键词分组显示（默认）
                                       # platform: 按平台/来源分组显示
   rank_threshold: 5                   # 排名高亮阈值
-  sort_by_position_first: false       # true=按配置位置排序，false=按热点条数排序
+  sort_by_position_first: true     # true=按配置位置排序，false=按热点条数排序
   max_news_per_keyword: 0             # 每个关键词最大显示数量（0=不限制）
-  reverse_content_order: false        # false=热点词汇统计在前，true=新增热点新闻在前
+  reverse_content_order: true       # false=热点词汇统计在前，true=新增热点新闻在前
 
 
 # ===============================================================
@@ -163,10 +136,10 @@ notification:
   # 注意：GitHub Actions 执行时间不稳定，时间范围建议至少留足 2 小时
   #       如果想要精准的定时推送，建议使用 Docker 部署在个人服务器上
   push_window:
-    enabled: false                    # 是否启用推送时间窗口控制
-    start: "20:00"                    # 开始时间（北京时间）
-    end: "22:00"                      # 结束时间（北京时间）
-    once_per_day: true                # true=窗口内只推送一次，false=窗口内每次执行都推送
+    enabled: true                    # 是否启用推送时间窗口控制
+    start: "00:10"                    # 开始时间（北京时间）
+    end: "23:59"                      # 结束时间（北京时间）
+    once_per_day: false               # true=窗口内只推送一次，false=窗口内每次执行都推送
 
   # 推送渠道配置
   channels:
@@ -271,8 +244,8 @@ advanced:
   # 排序权重（用于重新排序不同平台的热搜）
   # 合起来等于 1
   weight:
-    rank: 0.6                         # 排名权重
-    frequency: 0.3                    # 频次权重
+    rank: 0.8                         # 排名权重
+    frequency: 0.1                    # 频次权重
     hotness: 0.1                      # 热度权重
 
   # 多账号限制
